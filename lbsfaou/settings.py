@@ -124,3 +124,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# FlashSale - add FlashSale User model
+# django auth customization using AbstractBaseUser.
+# please refer to https://docs.djangoproject.com/en/dev/topics/auth/customizing/#a-full-example
+AUTH_USER_MODEL = 'accounts.FlashSaleUser'
