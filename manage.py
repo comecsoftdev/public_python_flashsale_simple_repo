@@ -5,6 +5,13 @@ import sys
 
 
 def main():
+    if sys.platform.startswith('win32'):
+        from lbsfaou import load_environment
+
+        # Set environment variables only in Windows debug mode before loading settings.py
+        # For Ubuntu production or Ubuntu debug mode, the environment variables should be set by the system.
+        load_environment()
+
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lbsfaou.settings')
     try:
