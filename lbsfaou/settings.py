@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # add accounts & flashsale
     'flashsale.apps.FlashsaleConfig',
     'accounts.apps.AccountsConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # django auth customization using AbstractBaseUser.
 # please refer to https://docs.djangoproject.com/en/dev/topics/auth/customizing/#a-full-example
 AUTH_USER_MODEL = 'accounts.FlashSaleUser'
+
+# add REST_FRAMEWORK for FlashSale
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'EXCEPTION_HANDLER': 'flashsale.misc.lib.extends.custom_exception_handler',
+}
