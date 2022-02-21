@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # add accounts & flashsale
+    'flashsale.apps.FlashsaleConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
