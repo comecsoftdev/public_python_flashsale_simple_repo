@@ -1,5 +1,5 @@
-import logging
+# import logging
 
-logger = logging.getLogger(__name__)
+# logger = logging.getLogger(__name__)
 
-logger.debug('Test log in accounts __init__')
+# logger.debug('Test log in accounts __init__')
