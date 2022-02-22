@@ -145,3 +145,54 @@ REST_FRAMEWORK = {
     ],
     'EXCEPTION_HANDLER': 'flashsale.misc.lib.extends.custom_exception_handler',
 }
+
+# FlashSale - setup django logging environment
+# create log directory
+LOGGING_ROOT = BASE_DIR / 'assets' / 'log'
+LOGGING_ROOT.mkdir(parents=True, exist_ok=True)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '%(name)-25s %(levelname)-8s %(message)s'
+        },
+        'file': {
+            'format': '%(asctime)s %(name)-25s %(levelname)-8s %(funcName)-20s %(message)s'
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console'
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(LOGGING_ROOT, 'debug.log'),
+            'when': "midnight",
+            'formatter': 'file',
+            'backupCount': 10,
+            'interval': 1,
+            'encoding': 'utf-8',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'flashsale': {
+            'level': 'DEBUG',
+            'handlers': ['file', 'console'],
+            'propagate': False,
+        },
+        'accounts': {
+            'level': 'DEBUG',
+            'handlers': ['file', 'console'],
+            'propagate': False,
+        },
+    },
+}
