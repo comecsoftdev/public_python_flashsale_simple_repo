@@ -30,6 +30,11 @@ assert SECRET_KEY is not None, 'SECRET_KEY None'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(strtobool(os.environ.get("DEBUG", "1")))
 
+# skip user verification , phone verification, business registration and so on..
+# Don't use this feature on PRODUCTION
+# Use only for TEST purpose
+TEST_MODE_ON = bool(strtobool(os.environ.get("TEST_MODE_ON", "0")))
+
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1').split(',')
 
 
@@ -169,6 +174,10 @@ SIMPLE_JWT = {
     'SIGNING_KEY': SIMPLE_JWT_SIGNING_KEY,
     'AUTH_HEADER_TYPES': ('JWT',),
 }
+
+# add Google client id here!!! for google authentication
+FLASHSALE_GOOGLE_CLIENT_ID = os.environ.get('FLASHSALE_GOOGLE_CLIENT_ID')
+assert FLASHSALE_GOOGLE_CLIENT_ID is not None, 'FLASHSALE_GOOGLE_CLIENT_ID None'
 
 # FlashSale - setup django logging environment
 # create log directory
