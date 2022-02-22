@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from distutils.util import strtobool
+from datetime import timedelta
 
 from pathlib import Path
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'flashsale.apps.FlashsaleConfig',
     'accounts.apps.AccountsConfig',
     'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -143,7 +145,29 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    # GenericAPIView is used for rest framework, and authentication classes are re-defined in GenericAPIView
+    # so different authentication is used for django session and rest framework session
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
     'EXCEPTION_HANDLER': 'flashsale.misc.lib.extends.custom_exception_handler',
+}
+
+# JWT settings
+SIMPLE_JWT_ACCESS_TOKEN_LIFETIME_IN_DAY = int(os.environ.get('SIMPLE_JWT_ACCESS_TOKEN_LIFETIME_IN_DAY', 1))
+SIMPLE_JWT_REFRESH_TOKEN_LIFETIME_IN_DAY = int(os.environ.get('SIMPLE_JWT_REFRESH_TOKEN_LIFETIME_IN_DAY', 15))
+SIMPLE_JWT_SIGNING_KEY = os.environ.get('SIMPLE_JWT_SIGNING_KEY', SECRET_KEY)
+SIMPLE_JWT_ALGORITHM = os.environ.get('SIMPLE_JWT_ALGORITHM', 'HS256')
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=SIMPLE_JWT_ACCESS_TOKEN_LIFETIME_IN_DAY),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=SIMPLE_JWT_REFRESH_TOKEN_LIFETIME_IN_DAY),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': False,
+
+    'ALGORITHM': SIMPLE_JWT_ALGORITHM,
+    'SIGNING_KEY': SIMPLE_JWT_SIGNING_KEY,
+    'AUTH_HEADER_TYPES': ('JWT',),
 }
 
 # FlashSale - setup django logging environment
