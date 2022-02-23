@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'rest_framework',
     'rest_framework_simplejwt',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -174,6 +175,18 @@ SIMPLE_JWT = {
     'SIGNING_KEY': SIMPLE_JWT_SIGNING_KEY,
     'AUTH_HEADER_TYPES': ('JWT',),
 }
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# Facebook Auth
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get("SOCIAL_AUTH_FACEBOOK_KEY")
+assert SOCIAL_AUTH_FACEBOOK_KEY is not None, 'SOCIAL_AUTH_FACEBOOK_KEY None'
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get("SOCIAL_AUTH_FACEBOOK_SECRET")
+assert SOCIAL_AUTH_FACEBOOK_SECRET is not None, 'SOCIAL_AUTH_FACEBOOK_SECRET None'
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id, name, email, picture' }
 
 # add Google client id here!!! for google authentication
 FLASHSALE_GOOGLE_CLIENT_ID = os.environ.get('FLASHSALE_GOOGLE_CLIENT_ID')

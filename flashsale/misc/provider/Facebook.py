@@ -2,6 +2,8 @@ import facebook
 
 from django.utils.translation import gettext_lazy as _
 
+from social_django.utils import load_strategy, load_backend
+
 from flashsale.misc.provider.ProviderBase import ProviderBase
 from flashsale.misc.lib.exceptions import OAuthAuthenticationError
 
@@ -10,9 +12,11 @@ from flashsale.misc.lib.exceptions import OAuthAuthenticationError
 class Facebook(ProviderBase):
     def verify_id_token(self, id_token, email):
         try:
-            graph = facebook.GraphAPI(access_token=id_token)
-            args = {'fields': 'id,name,email,picture', }
-            profile = graph.get_object('me', **args)
+            strategy = load_strategy()
+            backend = load_backend(strategy=strategy, name='facebook',
+                                   redirect_uri=None)
+
+            profile = backend.user_data(id_token)
 
             if profile['email'] != email:
                 raise OAuthAuthenticationError(_('Facebook OAuth Authentication Error.. different email address'))
