@@ -27,7 +27,9 @@ Django와 Django Rest framework에 익숙하지 않으신 분들도 쉽게 따�
 [가게로 홈페이지](https://www.comecsoft.com)  
 [가게로 구글 앱 스토어](https://play.google.com/store/apps/details?id=com.comecsoft.flashsale)  
 [가게로 깃허브 앱 소스](https://github.com/comecsoftdev/public_flutter_flashsale_repo)  
-[가게로 네이버 블로그](https://blog.naver.com/comecsoftdev)  
+[가게로 깃허브 서버 소스](https://github.com/comecsoftdev/public_python_flashsale_simple_repo)  
+[가게로 네이버 블로그(앱 관련)](https://blog.naver.com/comecsoftdev/222642871326)  
+[가게로 네이버 블로그(서버 관련)](https://blog.naver.com/comecsoftdev/222655625230)  
 [가게로 소비자 홍보 동영상](https://youtu.be/i53kbQxKv7c)  
 [가게로 판매자 홍보 동영상](https://youtu.be/7BelvWtrLaU)  
 
