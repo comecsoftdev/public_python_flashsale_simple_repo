@@ -2,7 +2,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from accounts.models import FlashSaleUser
@@ -35,3 +35,14 @@ class SignInView(GenericAPIView):
         except ObjectDoesNotExist:
             obj = None
         return obj
+
+
+class SignOutView(GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        request.user.is_active = False
+        request.user.save()
+
+        data = {'msg': 'successfully sign out'}
+        return Response(data)
