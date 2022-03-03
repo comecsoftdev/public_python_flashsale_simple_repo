@@ -19,3 +19,9 @@ class OAuthAuthenticationError(APIException):
     result_code = 401
     default_detail = _('OAuth Authentication Error')
     default_code = 'Oauth authentication Error'
+
+
+class RefreshTokenVerificationError(APIException):
+    result_code = 400
+    default_detail = _('Refresh Token verification Error')
+    default_code = 'Refresh Token verification Error.'
