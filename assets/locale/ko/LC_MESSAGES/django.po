@@ -1,0 +1,107 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-03 14:26+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\accounts\models.py:55
+msgid "Email Address"
+msgstr ""
+
+#: .\accounts\models.py:56
+msgid "Display Name"
+msgstr ""
+
+#: .\accounts\models.py:57
+msgid "Picture URL"
+msgstr ""
+
+#: .\accounts\models.py:60
+msgid "User Active?"
+msgstr ""
+
+#: .\accounts\models.py:61
+msgid "User Type"
+msgstr ""
+
+#: .\accounts\models.py:62
+msgid "Created"
+msgstr ""
+
+#: .\accounts\models.py:70
+msgid "User"
+msgstr ""
+
+#: .\accounts\models.py:71
+msgid "Users"
+msgstr ""
+
+#: .\accounts\views.py:39
+msgid "email should be provided"
+msgstr "인자에 이메일이 포함되어야 합니다"
+
+#: .\accounts\views.py:64
+msgid "token and refresh should be provided"
+msgstr ""
+
+#: .\accounts\views.py:82
+msgid "Refresh or Token verification Error"
+msgstr ""
+
+#: .\flashsale\misc\lib\exceptions.py:8
+msgid "parameter wrong"
+msgstr ""
+
+#: .\flashsale\misc\lib\exceptions.py:14
+msgid "There is no provider for oauth"
+msgstr ""
+
+#: .\flashsale\misc\lib\exceptions.py:20
+msgid "OAuth Authentication Error"
+msgstr ""
+
+#: .\flashsale\misc\lib\exceptions.py:26
+msgid "Refresh Token verification Error"
+msgstr ""
+
+#: .\flashsale\misc\provider\Facebook.py:22
+msgid "Facebook OAuth Authentication Error.. different email address"
+msgstr ""
+
+#: .\flashsale\misc\provider\Facebook.py:24
+msgid "Facebook OAuth Authentication Error."
+msgstr ""
+
+#: .\flashsale\misc\provider\Google.py:20
+msgid "Google OAuth Authentication Error.. iss error"
+msgstr ""
+
+#: .\flashsale\misc\provider\Google.py:22
+msgid "Google OAuth Authentication Error.. different email address"
+msgstr ""
+
+#: .\flashsale\misc\provider\Google.py:26
+msgid "Google OAuth Authentication Error. "
+msgstr ""
+
+#: .\lbsfaou\settings.py:131
+msgid "Korean"
+msgstr ""
+
+#: .\lbsfaou\settings.py:132
+msgid "English"
+msgstr ""
