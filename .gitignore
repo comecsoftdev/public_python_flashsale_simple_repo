@@ -1,9 +1,9 @@
-# sqlite
+py# sqlite
 *.sqlite3
 
 # migrations files
-accounts/migrations
-flashsale/migrations
+# accounts/migrations
+# flashsale/migrations
 
 # Miscellaneous
 *.class
