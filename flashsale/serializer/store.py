@@ -46,7 +46,7 @@ class StoreDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Store
-        fields = ('id', 'name', 'category', 'phone', 'lat', 'lng', 'address', 'address_detail',)
+        fields = ('id', 'name', 'category', 'phone', 'lat', 'lng', 'address', 'address_detail', 'created')
 
     def to_representation(self, instance):
         result = super(StoreDetailSerializer, self).to_representation(instance)
