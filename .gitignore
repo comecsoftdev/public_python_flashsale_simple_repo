@@ -1,6 +1,10 @@
 py# sqlite
 *.sqlite3
 
+assets/log
+assets/media
+assets/static
+
 # migrations files
 # accounts/migrations
 # flashsale/migrations
