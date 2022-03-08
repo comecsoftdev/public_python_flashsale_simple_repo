@@ -25,3 +25,9 @@ class RefreshTokenVerificationError(APIException):
     result_code = 400
     default_detail = _('Refresh Token verification Error')
     default_code = 'Refresh Token verification Error.'
+
+
+class NoPermissionToAccess(APIException):
+    result_code = 403
+    default_detail = _('No permission to access this data')
+    default_code = 'No permission to access this data'
