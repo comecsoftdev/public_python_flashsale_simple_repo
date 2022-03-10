@@ -151,11 +151,33 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = '/{}/'.format('static')
-STATIC_ROOT = BASE_DIR / 'assets' / 'static'
+if os.environ.get('FLASHSALE_STORAGE_TYPE', 'file') == 's3':
+    STATIC_LOCATION = 'static/test'
+    MEDIA_LOCATION = 'media/test'
 
-MEDIA_URL = '/{}/'.format('media')
-MEDIA_ROOT = BASE_DIR / 'assets' / 'media'
+    # aws settings
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    assert AWS_ACCESS_KEY_ID is not None, 'AWS_ACCESS_KEY_ID None'
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    assert AWS_SECRET_ACCESS_KEY is not None, 'AWS_SECRET_ACCESS_KEY None'
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+    assert AWS_STORAGE_BUCKET_NAME is not None, 'AWS_STORAGE_BUCKET_NAME None'
+    AWS_DEFAULT_REGION = os.environ.get('AWS_DEFAULT_REGION')
+    assert AWS_DEFAULT_REGION is not None, 'AWS_DEFAULT_REGION None'
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    # s3 static settings
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+    STATICFILES_STORAGE = 'flashsale.misc.lib.storage_backends.StaticStorage'
+    # s3 public media settings
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+    DEFAULT_FILE_STORAGE = 'flashsale.misc.lib.storage_backends.PublicMediaStorage'
+else:
+    STATIC_URL = '/{}/'.format('static')
+    STATIC_ROOT = BASE_DIR / 'assets' / 'static'
+
+    MEDIA_URL = '/{}/'.format('media')
+    MEDIA_ROOT = BASE_DIR / 'assets' / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
