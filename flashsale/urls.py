@@ -12,4 +12,6 @@ urlpatterns = [
     path('unregisterstore', store.UnRegisterStoreView.as_view(), name='unregisterstore'),
     # register product
     path('registerproduct', product.RegisterProductView.as_view(), name='registerproduct'),
+    # unregister product
+    path('unregisterproduct', product.UnRegisterProductView.as_view(), name='unregisterproduct'),
 ]

@@ -4,7 +4,8 @@ from rest_framework import permissions
 
 from accounts.models import USER_TYPE_OWNER
 
-from flashsale.misc.lib.exceptions import NoPermissionToAccess
+from flashsale.misc.lib.exceptions import NoPermissionToAccess, ArgumentWrongError
+from flashsale.models.product import Product
 from flashsale.models.store import Store
 
 
@@ -24,3 +25,15 @@ class IsStoreOwner(permissions.BasePermission):
             return True
         else:
             raise NoPermissionToAccess(_('You are not owner of this store'))
+
+
+# check if user is owner of product
+class IsProductOwner(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if obj.store.id != int(request.data['store']):
+            raise ArgumentWrongError(_('The product is not included in the store'))
+
+        if isinstance(obj, Product) and request.user == obj.user and request.user == obj.store.user:
+            return True
+        else:
+            raise NoPermissionToAccess(_('You are not owner of this product'))
