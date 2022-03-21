@@ -1,19 +1,16 @@
-import datetime
+from collections import defaultdict
 
-from django.db.models import Avg, Count
-from django.db.models import Q, OuterRef, Subquery, Exists
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework import status
 
 from flashsale.misc.lib.exceptions import ArgumentWrongError, NoPermissionToAccess
+from flashsale.misc.lib.pagination import CustomPagination
 from flashsale.misc.lib.permissions import IsReviewOwner
 from flashsale.serializer.review import ReviewSerializer, ReviewDetailSerializer
 from flashsale.models.review import Review
-from flashsale.models.store import Store
 
 
 class RegisterReviewView(GenericAPIView):
@@ -48,3 +45,32 @@ class UnRegisterReviewView(GenericAPIView):
 
         self.check_object_permissions(self.request, obj)
         return obj
+
+
+class GetReviewsView(GenericAPIView):
+    permission_classes = (IsAuthenticated, )
+
+    def post(self, request, *args, **kwargs):
+        # {1: [], 2:[], 3:[], ...}
+        # All replies included in the review of id 1, 2, 3, ...
+        children_dict = defaultdict(list)
+
+        pagination = CustomPagination()
+
+        queryset = Review.objects.select_related('user', 'store').filter(store_id=request.data['store'],
+                                                                         parent_id=None,).order_by('-created')
+        page = pagination.paginate_queryset(queryset, request)
+        children = Review.objects.select_related('parent', 'user', 'store').filter(parent_id__in=[p.id for p in page])
+
+        for child in children:
+            if child.parent is not None:
+                # Add replies to the same review
+                # {1: [{replay}, {replay}], 2: [{replay}, {replay}], ...}
+                children_dict[child.parent.id].append(child)
+
+        serializer = ReviewDetailSerializer(page, many=True, context={'children': children_dict})
+
+        review = pagination.get_paginated_response(serializer.data)
+
+        data = {'review': review, }
+        return Response(data)

@@ -18,4 +18,6 @@ urlpatterns = [
     path('registerreview', review.RegisterReviewView.as_view(), name='registerreview'),
     # unregister review
     path('unregisterreview', review.UnRegisterReviewView.as_view(), name='unregisterreview'),
+    # get reviews with store_id
+    path('getreviews', review.GetReviewsView.as_view(), name='getreviews'),
 ]
