@@ -6,6 +6,7 @@ from accounts.models import USER_TYPE_OWNER
 
 from flashsale.misc.lib.exceptions import NoPermissionToAccess, ArgumentWrongError
 from flashsale.models.product import Product
+from flashsale.models.review import Review
 from flashsale.models.store import Store
 
 
@@ -37,3 +38,12 @@ class IsProductOwner(permissions.BasePermission):
             return True
         else:
             raise NoPermissionToAccess(_('You are not owner of this product'))
+
+
+# check if user is owner of review
+class IsReviewOwner(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if isinstance(obj, Review) and request.user == obj.user:
+            return True
+        else:
+            raise NoPermissionToAccess(_('You are NOT owner of this review'))

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from flashsale.view import basic_data, store, product
+from flashsale.view import basic_data, store, product, review
 
 app_name = 'flashsale'
 urlpatterns = [
@@ -14,4 +14,8 @@ urlpatterns = [
     path('registerproduct', product.RegisterProductView.as_view(), name='registerproduct'),
     # unregister product
     path('unregisterproduct', product.UnRegisterProductView.as_view(), name='unregisterproduct'),
+    # register review
+    path('registerreview', review.RegisterReviewView.as_view(), name='registerreview'),
+    # unregister review
+    path('unregisterreview', review.UnRegisterReviewView.as_view(), name='unregisterreview'),
 ]
