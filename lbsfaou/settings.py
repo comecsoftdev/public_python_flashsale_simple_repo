@@ -235,6 +235,19 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id, name, email, picture
 FLASHSALE_GOOGLE_CLIENT_ID = os.environ.get('FLASHSALE_GOOGLE_CLIENT_ID')
 assert FLASHSALE_GOOGLE_CLIENT_ID is not None, 'FLASHSALE_GOOGLE_CLIENT_ID None'
 
+# Configuration of cache
+CACHES = {
+    'default': {
+        'BACKEND': os.environ.get('CACHES_DEFAULT_BACKEND', 'django_redis.cache.RedisCache'),
+        'LOCATION': os.environ.get('CACHES_DEFAULT_LOCATION'),
+        'OPTIONS': {
+            'CLIENT_CLASS': os.environ.get('CACHES_DEFAULT_OPTIONS_CLIENT_CLASS'),
+        }
+    }
+}
+assert CACHES['default']['LOCATION'] is not None, 'CACHES LOCATION None'
+assert CACHES['default']['OPTIONS']['CLIENT_CLASS'] is not None, 'CACHES OPTIONS CLIENT_CLASS None'
+
 # FlashSale - setup django logging environment
 # create log directory
 LOGGING_ROOT = BASE_DIR / 'assets' / 'log'

@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from accounts.models import FlashSaleUser, USER_TYPE_USER, USER_TYPE_OWNER
 
 from flashsale.models.store import Store
-from flashsale.serializer.basic_data import FlashSaleUserDetailSerializer
+from flashsale.serializer.basic_data import FlashSaleUserDetailSerializer, CategoryDetailSerializer
 
 
 class GetInitUserDataView(GenericAPIView):
@@ -25,4 +25,16 @@ class GetInitUserDataView(GenericAPIView):
 
         data = {'user_info': serializer.data, }
 
+        return Response(data)
+
+
+class GetCategoryView(GenericAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = CategoryDetailSerializer
+
+    # noinspection PyMethodMayBeStatic
+    def post(self, request, *args, **kwargs):
+        from flashsale.misc.lib.cache import get_category_cache
+
+        data = {'category': get_category_cache(), }
         return Response(data)

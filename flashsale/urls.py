@@ -20,4 +20,6 @@ urlpatterns = [
     path('unregisterreview', review.UnRegisterReviewView.as_view(), name='unregisterreview'),
     # get reviews with store_id
     path('getreviews', review.GetReviewsView.as_view(), name='getreviews'),
+    # get category data
+    path('getcategory', basic_data.GetCategoryView.as_view(), name='getcategory'),
 ]
