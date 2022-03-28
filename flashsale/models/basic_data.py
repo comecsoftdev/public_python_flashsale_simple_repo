@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.dispatch import receiver
 
 from mptt.models import MPTTModel, TreeForeignKey
 
@@ -18,3 +19,15 @@ class Category(MPTTModel):
 
     def __str__(self):
         return self.name
+
+
+@receiver(models.signals.post_save, sender=Category)
+def change_category_update_on_save(sender, instance, **kwargs):
+    from flashsale.misc.lib.cache import delete_category_cache
+    delete_category_cache()
+
+
+@receiver(models.signals.post_delete, sender=Category)
+def change_category_delete_on_save(sender, instance, **kwargs):
+    from flashsale.misc.lib.cache import delete_category_cache
+    delete_category_cache()
