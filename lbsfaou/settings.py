@@ -248,6 +248,10 @@ CACHES = {
 assert CACHES['default']['LOCATION'] is not None, 'CACHES LOCATION None'
 assert CACHES['default']['OPTIONS']['CLIENT_CLASS'] is not None, 'CACHES OPTIONS CLIENT_CLASS None'
 
+# FCM server key
+FCM_SERVER_KEY = os.environ.get('FCM_SERVER_KEY')
+assert FCM_SERVER_KEY is not None, 'FCM_SERVER_KEY None'
+
 # FlashSale - setup django logging environment
 # create log directory
 LOGGING_ROOT = BASE_DIR / 'assets' / 'log'
