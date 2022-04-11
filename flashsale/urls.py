@@ -1,6 +1,6 @@
 from django.urls import path
 
-from flashsale.view import basic_data, store, product, review
+from flashsale.view import basic_data, store, product, review, push
 
 app_name = 'flashsale'
 urlpatterns = [
@@ -22,4 +22,8 @@ urlpatterns = [
     path('getreviews', review.GetReviewsView.as_view(), name='getreviews'),
     # get category data
     path('getcategory', basic_data.GetCategoryView.as_view(), name='getcategory'),
+    # register push device
+    path('registerpushdevice', push.RegisterPushDeviceView.as_view(), name='registerpushdevice'),
+    # register push message
+    path('registerpushmessage', push.RegisterPushMessageView.as_view(), name='registerpushmessage'),
 ]
