@@ -248,6 +248,14 @@ CACHES = {
 assert CACHES['default']['LOCATION'] is not None, 'CACHES LOCATION None'
 assert CACHES['default']['OPTIONS']['CLIENT_CLASS'] is not None, 'CACHES OPTIONS CLIENT_CLASS None'
 
+# celery configurations
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+assert CELERY_BROKER_URL is not None, 'CELERY_BROKER_URL None'
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_BROKER_URL')
+CELERY_TASK_SERIALIZER = os.environ.get('CELERY_TASK_SERIALIZER', 'json')
+CELERY_ACCEPT_CONTENT = os.environ.get('CELERY_ACCEPT_CONTENT', 'json').split(',')
+CELERY_RESULT_SERIALIZER = os.environ.get('CELERY_RESULT_SERIALIZER', 'json')
+
 # FCM server key
 FCM_SERVER_KEY = os.environ.get('FCM_SERVER_KEY')
 assert FCM_SERVER_KEY is not None, 'FCM_SERVER_KEY None'

@@ -42,8 +42,10 @@ def send_new_message_notification(sender, **kwargs):
     device_type = message.recipient.push_device.type
     device_registration_id = message.recipient.push_device.registration_id
 
-    res = send_new_message_push_notification(device_id=device_id, device_type=device_type, device_registration_id=device_registration_id,
-                                             content=message.content, message_body=message.message_body)
+    res = send_new_message_push_notification.delay(device_id=device_id, device_type=device_type,
+                                                   device_registration_id=device_registration_id,
+                                                   content=message.content, message_body=message.message_body)
+    res = res.get()
 
     if res is None or res.get('success', 0) == 0:
         logger.debug('send_new_message_notification fail {} {}'.format(message.recipient.id, message.content))
